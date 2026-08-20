@@ -1,0 +1,19 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Discord bot actions go through the serverless function (no browser CORS).
+[[redirects]]
+  from = "/api/discord"
+  to = "/.netlify/functions/discord"
+  status = 200
+
+# SPA fallback — every route serves index.html.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status =
